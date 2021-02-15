@@ -3,13 +3,22 @@ const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
 const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
 const User = require('../../models/User');
+const { JWT_KEY} = require('../../config');
+
+// function generateToken(user) {
+//   return jwt.sign({
+//     id: user.id,
+//     email: user.email,
+//     username: user.username
+//   }, process.env.JWT_KEY, { expiresIn: '1h' });
+// }
 
 function generateToken(user) {
   return jwt.sign({
     id: user.id,
     email: user.email,
     username: user.username
-  }, process.env.JWT_KEY, { expiresIn: '1h' });
+  }, JWT_KEY, { expiresIn: '1h' });
 }
 
 module.exports = {
