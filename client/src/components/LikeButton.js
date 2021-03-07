@@ -16,6 +16,23 @@ export default function LikeButton({ user, post: { id, likes, likeCount } }) {
     variables: { postId: id },
   });
 
+//   const likeButton = user ? (
+//     liked ? (
+//         <span onClick={() => likePost()}>you liked</span>
+//     ) : (
+//         <span onClick={() => likePost()}>wanna to like?</span>
+//     )
+// ) : (
+//     <Link to="/login">login first</Link>
+// );
+
+// return (
+//     <div>
+//         <span>{likeCount} </span>
+//         <span> {likeButton}</span>
+//     </div>
+// )
+
   const likeButton = user ? (
     liked ? (
       <Button color="teal">
