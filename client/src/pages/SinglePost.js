@@ -9,6 +9,7 @@ import { Card, Grid, Image, Button, Icon, Label, Form } from 'semantic-ui-react'
 import { useHistory, useParams } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
+import MyPopup from '../util/MyPopup';
 
 export default function SinglePost(props) {
 
@@ -66,18 +67,20 @@ export default function SinglePost(props) {
               </Card.Content>
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => console.log("comment on post")}
-                >
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
+                <MyPopup content="Comment on Post">
+                  <Button
+                    as="div"
+                    labelPosition="right"
+                    onClick={() => commentInputRef.current.focus()}
+                  >
+                    <Button color="blue" basic>
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
                   </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                </MyPopup>
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
