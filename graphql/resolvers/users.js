@@ -97,13 +97,6 @@ module.exports = {
     },
     async createNewAva(_, { urlImage }, context){
       const user = chekAuth(context);
-      
-      // const user  = await User.findOne({ username });
-
-      // if(!user){
-      //   errors.general = 'User not found';
-      //   throw new UserInputError('User not found', { errors });
-      // }
 
       let userForUpdate;
 
@@ -122,14 +115,6 @@ module.exports = {
       }
 
       return userForUpdate;
-
-      // const userUp  = await User.findByIdAndUpdate({user.id})
-
-      // return {
-      //   ...user._doc,
-      //   id: user._id,
-      //   token
-      // }
 
     }
   }
