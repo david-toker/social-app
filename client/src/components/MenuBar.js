@@ -18,13 +18,23 @@ export default function MenuBar() {
     <Menu pointing secondary size="massive" color="teal">
       <Menu.Item
         name={user.username}
-        active
+        active={activeItem === user.username }
+        onClick={handleItemClick}
         as={Link}
         to="/"
+      />
+      <Menu.Item
+        name="NewAvatar"
+        active={activeItem === "NewAvatar"}
+        onClick={handleItemClick}
+        as={Link}
+        to="/set-avatar"
       />
       <Menu.Menu position="right">
         <Menu.Item
           name="logout"
+          as={Link}
+          to="/"
           onClick={logout}
         />
       </Menu.Menu>

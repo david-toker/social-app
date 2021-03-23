@@ -17,23 +17,6 @@ export default function LikeButton({ user, post: { id, likes, likeCount } }) {
     variables: { postId: id },
   });
 
-//   const likeButton = user ? (
-//     liked ? (
-//         <span onClick={() => likePost()}>you liked</span>
-//     ) : (
-//         <span onClick={() => likePost()}>wanna to like?</span>
-//     )
-// ) : (
-//     <Link to="/login">login first</Link>
-// );
-
-// return (
-//     <div>
-//         <span>{likeCount} </span>
-//         <span> {likeButton}</span>
-//     </div>
-// )
-
   const likeButton = user ? (
     liked ? (
       <Button color="teal">
@@ -54,7 +37,7 @@ export default function LikeButton({ user, post: { id, likes, likeCount } }) {
   );
 
   return (
-    <Button as="div" labelPosition="right" onClick={likePost}>
+    <Button as="div" labelPosition="right" onClick={user && likePost}>
       <MyPopup content={liked ? "Unlike" : "Like"}>{likeButton}</MyPopup>
       <Label basic color="teal" pointing="left">
         {likeCount}

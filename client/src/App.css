@@ -5,12 +5,53 @@
   margin-top: 10px;
 }
 
-.form-container {
+/* .form-container {
   width: 400px;
   margin: auto;
-}
+} */
 
 .ui.teal.button:focus,
 .ui.teal.buttons .button:focus {
   background-color: #00b5ad;
+}
+
+
+/* If the screen size is 601px or more */
+@media only screen and (min-width: 601px) {
+  .form-container {
+    width: 400px;
+    margin: auto;
+  }
+}
+
+/* If the screen size is 600px or less */
+@media only screen and (max-width: 600px) {
+  .form-container {
+    width: 250px;
+    margin: auto;
+  }
+}
+
+/* .image-upload.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} */
+
+.image-upload__preview {
+  width: 290px;
+  height: 210px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* margin-bottom: 1rem; */
+}
+
+.image-upload__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

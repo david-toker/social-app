@@ -1,13 +1,14 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const Post = require('../../models/Post');
 const checkAuth = require('../../util/check-auth');
-const chekAuth = require('../../util/check-auth');
+
 
 module.exports = {
   Query: {
     async getPosts() {
       try {
-        const posts = await Post.find().sort({ createdAt: -1});
+        // const posts = await Post.find().sort({ createdAt: -1});
+        const posts = await Post.find().sort({ createdAt: -1}).populate({path: 'user', select: 'urlImage'}).exec();
         return posts;
       } catch (error) {
         throw new Error(error);
@@ -15,7 +16,7 @@ module.exports = {
     },
     async getPost(_, { postId }) {
       try {
-        const post = await Post.findById(postId);
+        const post = await Post.findById(postId).populate({path: 'user', select: 'urlImage'}).exec();
         if(post) {
           return post;
         } else {
@@ -28,7 +29,7 @@ module.exports = {
   },
   Mutation: {
     async createPost(_, { body }, context) {
-      const user = chekAuth(context);
+      const user = checkAuth(context);
 
       if(body.trim() === '') {
         throw new Error('Post body must not be empty');

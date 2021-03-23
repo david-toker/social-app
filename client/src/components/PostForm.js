@@ -39,6 +39,7 @@ export default function PostForm() {
           <Form.Input
             placeholder="Anything new?"
             name="body"
+            autoComplete="off"
             onChange={onChange}
             value={values.body}
             error={error ? true : false}

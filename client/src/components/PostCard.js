@@ -9,13 +9,17 @@ import DeleteButton from './DeleteButton';
 import MyPopup from '../util/MyPopup';
 
 export default function PostCard(props) {
-  const { body, createdAt, id, username, likeCount, commentCount, likes } = props.post;
+  const { body, createdAt, id, username, likeCount, commentCount, likes, user: { urlImage } } = props.post;
 
-  const { user } = useContext(AuthContext);
+  const { user, userImage } = useContext(AuthContext);
 
-  // function likePost(){
-  //   console.log('Like Post!')
-  // }
+  let avatarImg;
+
+  if (user && user.username === username) {
+    avatarImg = userImage;
+  } else {
+    avatarImg = urlImage;
+  }
 
   return (
     <Card fluid>
@@ -23,7 +27,7 @@ export default function PostCard(props) {
         <Image
           floated="right"
           size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+          src={avatarImg}
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>

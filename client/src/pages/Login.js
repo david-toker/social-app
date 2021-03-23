@@ -38,6 +38,7 @@ export default function Login(props) {
           placeholder="Username.."
           name="username"
           type="text"
+          autoComplete="username"
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
@@ -47,6 +48,7 @@ export default function Login(props) {
           placeholder="Password.."
           name="password"
           type="password"
+          autoComplete="current-password"
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
@@ -78,7 +80,7 @@ const LOGIN_USER = gql`
       username: $username
       password: $password
     ){
-      id email username createdAt token 
+      id email username createdAt token urlImage 
     }
   }
 `

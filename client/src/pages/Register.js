@@ -40,6 +40,7 @@ export default function Register(props) {
           placeholder="Username.."
           name="username"
           type="text"
+          autoComplete="username"
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
@@ -49,6 +50,7 @@ export default function Register(props) {
           placeholder="Email.."
           name="email"
           type="email"
+          autoComplete="username"
           value={values.email}
           error={errors.email ? true : false}
           onChange={onChange}
@@ -58,6 +60,7 @@ export default function Register(props) {
           placeholder="Password.."
           name="password"
           type="password"
+          autoComplete="new-password"
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
@@ -67,6 +70,7 @@ export default function Register(props) {
           placeholder="Confirm Password.."
           name="confirmPassword"
           type="password"
+          autoComplete="new-password"
           value={values.confirmPassword}
           error={errors.confirmPassword ? true : false}
           onChange={onChange}

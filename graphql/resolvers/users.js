@@ -3,23 +3,26 @@ const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
 const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
 const User = require('../../models/User');
-const { JWT_KEY} = require('../../config');
-
-// function generateToken(user) {
-//   return jwt.sign({
-//     id: user.id,
-//     email: user.email,
-//     username: user.username
-//   }, process.env.JWT_KEY, { expiresIn: '1h' });
-// }
+const chekAuth = require('../../util/check-auth');
+// const { JWT_KEY} = require('../../config');
 
 function generateToken(user) {
   return jwt.sign({
     id: user.id,
     email: user.email,
-    username: user.username
-  }, JWT_KEY, { expiresIn: '1h' });
+    username: user.username,
+    urlImage: user.urlImage
+  }, process.env.JWT_KEY, { expiresIn: '1h' });
 }
+
+// function generateToken(user) {
+//   return jwt.sign({
+//     id: user.id,
+//     email: user.email,
+//     username: user.username,
+//     urlImage: user.urlImage
+//   }, JWT_KEY, { expiresIn: '1h' });
+// }
 
 module.exports = {
   Mutation: {
@@ -78,7 +81,8 @@ module.exports = {
         email,
         username,
         password,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        urlImage: "images/default-user.png"
       });
 
       const res = await newUser.save();
@@ -90,6 +94,43 @@ module.exports = {
         id: res._id,
         token
       }
+    },
+    async createNewAva(_, { urlImage }, context){
+      const user = chekAuth(context);
+      
+      // const user  = await User.findOne({ username });
+
+      // if(!user){
+      //   errors.general = 'User not found';
+      //   throw new UserInputError('User not found', { errors });
+      // }
+
+      let userForUpdate;
+
+      try {
+        userForUpdate = await User.findById(user.id);
+      } catch (error) {
+        throw new Error(error)
+      }
+
+      userForUpdate.urlImage = urlImage;
+
+      try {
+        await userForUpdate.save();
+      } catch (error) {
+        throw new Error(error)
+      }
+
+      return userForUpdate;
+
+      // const userUp  = await User.findByIdAndUpdate({user.id})
+
+      // return {
+      //   ...user._doc,
+      //   id: user._id,
+      //   token
+      // }
+
     }
   }
 };

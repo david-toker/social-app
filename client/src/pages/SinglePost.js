@@ -6,15 +6,11 @@ import { AuthContext } from '../context/auth';
 
 import { Card, Grid, Image, Button, Icon, Label, Form } from 'semantic-ui-react';
 
-import { useHistory, useParams } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import MyPopup from '../util/MyPopup';
 
 export default function SinglePost(props) {
-
-  // console.log(useParams().postId);
-  // console.log(useHistory());
 
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
@@ -43,17 +39,21 @@ export default function SinglePost(props) {
     props.history.push('/');
   }
 
+  const focusOnInput = () => {
+    commentInputRef.current.focus()
+  }
+
   let postMarkup;
   if (!getPost) {
     postMarkup = <p>Loading post...</p>
   } else {
-    const { id, body, createdAt, username, comments, likes, likeCount, commentCount } = getPost;
+    const { id, body, createdAt, username, comments, likes, likeCount, commentCount, user: { urlImage } } = getPost;
     postMarkup = (
-      <Grid>
+      <Grid  doubling stackable>
         <Grid.Row>
           <Grid.Column width={2}>
             <Image
-              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+              src={`/${urlImage}`}
               size="small"
               floated="right"
             />
@@ -71,7 +71,7 @@ export default function SinglePost(props) {
                   <Button
                     as="div"
                     labelPosition="right"
-                    onClick={() => commentInputRef.current.focus()}
+                    onClick={user && focusOnInput}
                   >
                     <Button color="blue" basic>
                       <Icon name="comments" />
@@ -163,6 +163,9 @@ const FETCH_POST_QUERY = gql`
         username
         createdAt
         body
+      }
+      user {
+        urlImage
       }
     }
   }
