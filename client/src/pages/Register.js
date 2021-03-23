@@ -19,6 +19,7 @@ export default function Register(props) {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, { data: { register: userData }}) {
       context.login(userData);
+      context.saveNewImage(userData.urlImage);
       props.history.push('/');
     },
     onError(err){
@@ -108,7 +109,7 @@ const REGISTER_USER = gql`
         confirmPassword: $confirmPassword
       }
     ){
-      id email username createdAt token 
+      id email username createdAt token urlImage
     }
   }
 `
